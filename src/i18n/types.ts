@@ -196,6 +196,38 @@ export interface Translations {
     disclaimer: string
   }
   
+  // 脑区名称翻译
+  brainRegions?: {
+    precentral: string
+    postcentral: string
+    paracentral: string
+    pericalcarine: string
+    cuneus: string
+    lingual: string
+    entorhinal: string
+    parahippocampal: string
+    medialorbitofrontal: string
+    superiortemporal: string
+    parsopercularis: string
+    parstriangularis: string
+    middletemporal: string
+    fusiform: string
+    supramarginal: string
+    inferiorparietal: string
+    rostralanteriorcingulate: string
+    insula: string
+    posteriorcingulate: string
+    superiorfrontal: string
+    rostralmiddlefrontal: string
+    caudalmiddlefrontal: string
+    superiorparietal: string
+    precuneus: string
+    lateraloccipital: string
+    lateralorbitofrontal: string
+    inferiortemporal: string
+    piriform: string
+  }
+  
   // 基础指标详情页
   basicMetricDetail: {
     backButton: string
@@ -236,6 +268,170 @@ export interface Translations {
     atypical: string
     strong: string
     extreme: string
+  }
+  
+  // 可爱俏皮的侧化标签
+  lateralityTags?: {
+    sectionTitle: string
+    sectionHint: string
+    // 惯用手
+    rightHanded: string
+    mildRightHanded: string
+    ambidextrous: string
+    mildLeftHanded: string
+    leftHanded: string
+    // 主视眼
+    rightEyeDominant: string
+    mildRightEye: string
+    balancedEyes: string
+    mildLeftEye: string
+    leftEyeDominant: string
+    // 嗅觉
+    rightNostrilStar: string
+    mildRightNostril: string
+    balancedNostrils: string
+    mildLeftNostril: string
+    leftNostrilStar: string
+    // 语言
+    leftBrainLanguage: string
+    mildLeftLanguage: string
+    bilateralLanguage: string
+    mildRightLanguage: string
+    rightBrainLanguage: string
+    // 空间
+    spatialMaster: string
+    spatialBalanced: string
+    spatialAnalytical: string
+    // 情绪
+    emotionSensitive: string
+    emotionBalanced: string
+    emotionPositive: string
+    // 面孔
+    faceRecognizer: string
+    faceBalanced: string
+    faceAnalytical: string
+    // 音乐
+    musicTalent: string
+    musicBalanced: string
+    rhythmMaster: string
+    // 心智
+    mindReader: string
+    mindBalanced: string
+    mindLogical: string
+    // 逻辑
+    logicGenius: string
+    logicStrong: string
+    logicBalanced: string
+    logicSpatial: string
+    // 数学
+    mathGenius: string
+    mathStrong: string
+    mathBalanced: string
+    mathGeometric: string
+  }
+  
+  // 脑容量标签
+  brainTags?: {
+    sectionTitle: string
+    sectionHint: string
+    // 总脑容量
+    brainVolLarge: string
+    brainVolAbove: string
+    brainVolNormal: string
+    brainVolCompact: string
+    // 灰质
+    cortexLarge: string
+    cortexAbove: string
+    cortexNormal: string
+    cortexCompact: string
+    // 白质
+    whiteLarge: string
+    whiteAbove: string
+    whiteNormal: string
+    whiteCompact: string
+    // 左脑厚度
+    thickLeft: string
+    thickLeftGood: string
+    thickLeftNormal: string
+    thickLeftSlim: string
+    // 右脑厚度
+    thickRight: string
+    thickRightGood: string
+    thickRightNormal: string
+    thickRightSlim: string
+  }
+  
+  // 所有标签合并
+  allTags?: {
+    sectionTitle: string
+    sectionHint: string
+  }
+  
+  // 稀有度提示
+  rarityTooltip?: {
+    mythic: string
+    legendary: string
+    epic: string
+    rare: string
+    uncommon: string
+    common: string
+    growing: string
+  }
+  
+  // 俏皮评分
+  cuteScore?: {
+    suffix: string
+    level90: string
+    level80: string
+    level70: string
+    level60: string
+    level50: string
+  }
+  
+  // 能力标签
+  abilityTags?: {
+    sectionTitle: string
+    sectionHint: string
+    // 嗅觉
+    smellSuperStar: string
+    smellGood: string
+    smellNormal: string
+    smellDeveloping: string
+    // 语言
+    langGenius: string
+    langGood: string
+    langNormal: string
+    langDeveloping: string
+    // 阅读
+    readingMaster: string
+    readingGood: string
+    readingNormal: string
+    readingDeveloping: string
+    // 阅读障碍风险
+    dyslexiaLow: string
+    dyslexiaNormal: string
+    dyslexiaWatch: string
+    dyslexiaSupport: string
+    // 共情
+    empathyStar: string
+    empathyGood: string
+    empathyNormal: string
+    empathyDeveloping: string
+    // 执行功能
+    execStar: string
+    execGood: string
+    execNormal: string
+    execDeveloping: string
+    // 空间
+    spatialStar: string
+    spatialGood: string
+    spatialNormal: string
+    spatialDeveloping: string
+    // 流体智力
+    iqStar: string
+    iqGood: string
+    iqNormal: string
+    iqDeveloping: string
   }
   
   // DKT 分析摘要

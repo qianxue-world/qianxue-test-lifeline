@@ -54,6 +54,16 @@
   z-index: 1000;
   min-width: 160px;
   border: 2px solid rgba(255, 158, 199, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.25s ease;
+}
+
+.language-switcher:hover .language-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .language-option {

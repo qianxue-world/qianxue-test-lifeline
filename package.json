@@ -9,11 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rave-ieeg/three-brain": "^1.2.0",
+    "@react-three/drei": "^9.92.0",
+    "@react-three/fiber": "^8.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@react-three/fiber": "^8.15.0",
-    "@react-three/drei": "^9.92.0",
-    "three": "^0.160.0",
+    "three": "^0.160.1",
     "zustand": "^4.4.7"
   },
   "devDependencies": {

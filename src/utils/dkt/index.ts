@@ -206,17 +206,22 @@ export function runDKTAnalysis(lhData: Record<string, any>, rhData: Record<strin
   const recommendations: string[] = []
   
   if (t) {
+    // Helper function to get translated index name
+    const getTranslatedName = (name: string) => {
+      return t.dkt?.indexNames?.[name as keyof typeof t.dkt.indexNames] || name
+    }
+    
     // Strength-based recommendations
     const veryHighIndices = indices.filter(i => i.percentile >= 95)
     if (veryHighIndices.length > 0) {
-      const strengthAreas = veryHighIndices.map(i => i.name).join(', ')
+      const strengthAreas = veryHighIndices.map(i => getTranslatedName(i.name)).join(', ')
       recommendations.push(t.dktSummary.recommendations.excellentPerformance.replace('{areas}', strengthAreas))
     }
     
     // Weakness-based recommendations
     const lowIndices = indices.filter(i => i.percentile < 20)
     if (lowIndices.length > 0) {
-      const weakAreas = lowIndices.map(i => i.name).join(', ')
+      const weakAreas = lowIndices.map(i => getTranslatedName(i.name)).join(', ')
       recommendations.push(t.dktSummary.recommendations.relativelyWeak.replace('{areas}', weakAreas))
     }
     

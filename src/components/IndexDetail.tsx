@@ -384,7 +384,7 @@ export default function IndexDetail({ index, onBack }: Props) {
               <tbody>
                 {index.details.map((d, i) => (
                   <tr key={i}>
-                    <td className="region-name">{d.region}</td>
+                    <td className="region-name">{t.brainRegions?.[d.region as keyof typeof t.brainRegions] || d.region}</td>
                     <td>{(d.regionWeight * 100).toFixed(0)}%</td>
                     <td className={d.zL > 0 ? 'positive' : d.zL < 0 ? 'negative' : ''}>
                       {d.zL.toFixed(3)}
