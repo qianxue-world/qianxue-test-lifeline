@@ -15,10 +15,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - test-lifeline.qianxue.online
+    - lifeline.qianxue.online
     secretName: qianxue-test-lifeline-tls-secret
   rules:
-  - host: test-lifeline.qianxue.online
+  - host: lifeline.qianxue.online
     http:
       paths:
       - path: /
