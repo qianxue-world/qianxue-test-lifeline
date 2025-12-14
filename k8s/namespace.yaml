@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: mind-eden-ns
+  name: qianxue-test-lifeline-ns
   labels:
-    name: mind-eden-ns
+    name: qianxue-test-lifeline-ns
     managed-by: argocd

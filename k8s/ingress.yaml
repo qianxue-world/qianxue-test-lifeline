@@ -1,10 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mind-eden-ingress
-  namespace: mind-eden-ns
+  name: qianxue-test-lifeline-ingress
+  namespace: qianxue-test-lifeline-ns
   labels:
-    app: mind-eden
+    app: qianxue-test-lifeline
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -15,16 +15,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - mind-eden.qianxue.online
-    secretName: mind-eden-tls-secret
+    - test-lifeline.qianxue.online
+    secretName: qianxue-test-lifeline-tls-secret
   rules:
-  - host: mind-eden.qianxue.online
+  - host: test-lifeline.qianxue.online
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: mind-eden-service
+            name: qianxue-test-lifeline-service
             port:
               number: 80

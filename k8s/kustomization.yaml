@@ -1,11 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: mind-eden-ns
+namespace: qianxue-test-lifeline-ns
 
 metadata:
-  name: mind-eden
-  namespace: mind-eden-ns
+  name: qianxue-test-lifeline
+  namespace: qianxue-test-lifeline-ns
 
 resources:
 - namespace.yaml
@@ -17,11 +17,11 @@ resources:
 - hpa.yaml
 
 images:
-- name: omaticaya/qianxue-test-mindpotential
-  newTag: 1.0.10
+- name: omaticaya/qianxue-test-lifeline
+  newTag: 1.0.1
 
 commonLabels:
-  app: mind-eden
+  app: qianxue-test-lifeline
   managed-by: argocd
 
 

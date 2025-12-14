@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mind-eden
-  namespace: mind-eden-ns
+  name: qianxue-test-lifeline
+  namespace: qianxue-test-lifeline-ns
   labels:
-    app: mind-eden
+    app: qianxue-test-lifeline
     version: v1
 spec:
   replicas: 1
@@ -15,16 +15,16 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: mind-eden
+      app: qianxue-test-lifeline
   template:
     metadata:
       labels:
-        app: mind-eden
+        app: qianxue-test-lifeline
         version: v1
     spec:
       containers:
-      - name: mind-eden
-        image: omaticaya/qianxue-test-mindpotential:1.0.9
+      - name: qianxue-test-lifeline
+        image: omaticaya/qianxue-test-lifeline:1.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -58,6 +58,6 @@ spec:
         - name: VITE_API_BASE_URL
           valueFrom:
             configMapKeyRef:
-              name: mind-eden-config
+              name: qianxue-test-lifeline-config
               key: API_BASE_URL
       restartPolicy: Always

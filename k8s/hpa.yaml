@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: mind-eden-hpa
-  namespace: mind-eden-ns
+  name: qianxue-test-lifeline-hpa
+  namespace: qianxue-test-lifeline-ns
   labels:
-    app: mind-eden
+    app: qianxue-test-lifeline
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: mind-eden
+    name: qianxue-test-lifeline
   minReplicas: 2
   maxReplicas: 10
   metrics:

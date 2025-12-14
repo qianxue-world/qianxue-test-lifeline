@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mind-eden-config
-  namespace: mind-eden-ns
+  name: qianxue-test-lifeline-config
+  namespace: qianxue-test-lifeline-ns
   labels:
-    app: mind-eden
+    app: qianxue-test-lifeline
 data:
   # API Base URL for backend services
   API_BASE_URL: "https://api.qianxue.online"

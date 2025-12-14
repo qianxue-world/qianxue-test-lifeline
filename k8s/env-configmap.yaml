@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mind-eden-env-config
-  namespace: mind-eden-ns
+  name: qianxue-test-lifeline-env-config
+  namespace: qianxue-test-lifeline-ns
   labels:
-    app: mind-eden
+    app: qianxue-test-lifeline
