@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: qianxue-test-lifeline
-        image: omaticaya/qianxue-test-lifeline:1.0.11
+        image: omaticaya/qianxue-test-lifeline:1.0.12
         imagePullPolicy: Always
         ports:
         - containerPort: 80
