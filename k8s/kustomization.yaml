@@ -18,7 +18,7 @@ resources:
 
 images:
 - name: omaticaya/qianxue-test-lifeline
-  newTag: 1.0.11
+  newTag: 1.0.12
 
 commonLabels:
   app: qianxue-test-lifeline
