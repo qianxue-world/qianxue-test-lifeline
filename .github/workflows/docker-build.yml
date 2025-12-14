@@ -1,0 +1,132 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+    paths-ignore:
+      - 'k8s/**'
+      - 'VERSION'
+      - '**.md'
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Get current version
+        id: get_version
+        run: |
+          if [ -f VERSION ]; then
+            CURRENT_VERSION=$(cat VERSION)
+          else
+            CURRENT_VERSION="1.0.0"
+            echo "$CURRENT_VERSION" > VERSION
+          fi
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT_VERSION"
+
+      - name: Bump version
+        id: bump_version
+        run: |
+          CURRENT_VERSION="${{ steps.get_version.outputs.current_version }}"
+          IFS='.' read -r -a version_parts <<< "$CURRENT_VERSION"
+          MAJOR="${version_parts[0]}"
+          MINOR="${version_parts[1]}"
+          PATCH="${version_parts[2]}"
+          
+          # Increment patch version
+          PATCH=$((PATCH + 1))
+          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          
+          echo "$NEW_VERSION" > VERSION
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:${{ steps.bump_version.outputs.new_version }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:latest
+          labels: |
+            org.opencontainers.image.version=${{ steps.bump_version.outputs.new_version }}
+            org.opencontainers.image.created=${{ github.event.head_commit.timestamp }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:buildcache,mode=max
+          platforms: linux/amd64,linux/arm64
+
+      - name: Update kustomization.yaml
+        run: |
+          NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
+          sed -i "s|newTag:.*|newTag: $NEW_VERSION|g" k8s/kustomization.yaml
+          echo "Updated kustomization.yaml with version $NEW_VERSION"
+
+      - name: Update deployment.yaml
+        run: |
+          NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
+          sed -i "s|image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:$NEW_VERSION|g" k8s/deployment.yaml
+          echo "Updated deployment.yaml with version $NEW_VERSION"
+
+      - name: Commit and push version updates
+        run: |
+          NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
+          git add VERSION k8s/kustomization.yaml k8s/deployment.yaml
+          git commit -m "chore: bump version to $NEW_VERSION [skip ci]" || echo "No changes to commit"
+          git push origin ${{ github.ref_name }} || echo "Nothing to push"
+
+      - name: Create Git Tag
+        run: |
+          NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
+          git tag -a "v$NEW_VERSION" -m "Release version $NEW_VERSION"
+          git push origin "v$NEW_VERSION" || echo "Tag already exists"
+
+      - name: Deployment Summary
+        run: |
+          NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Docker Image Built and Pushed**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** \`$NEW_VERSION\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Image:** \`${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:$NEW_VERSION\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Latest Tag:** \`${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:latest\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📝 Updated Files:" >> $GITHUB_STEP_SUMMARY
+          echo "- \`VERSION\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`k8s/kustomization.yaml\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`k8s/deployment.yaml\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "ArgoCD will automatically detect and deploy the new version! 🎯" >> $GITHUB_STEP_SUMMARY

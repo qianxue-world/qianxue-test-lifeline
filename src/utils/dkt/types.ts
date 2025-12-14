@@ -35,6 +35,24 @@ export const REFERENCE_DATA_MALE: Record<string, {
   lateraloccipital: { thickness: { mean: 2.20, std: 0.16 }, surfArea: { mean: 6300, std: 800 }, volume: { mean: 15000, std: 2000 } },
   lateralorbitofrontal: { thickness: { mean: 2.55, std: 0.20 }, surfArea: { mean: 3500, std: 480 }, volume: { mean: 9800, std: 1400 } },
   inferiortemporal: { thickness: { mean: 2.80, std: 0.20 }, surfArea: { mean: 3900, std: 520 }, volume: { mean: 12500, std: 1700 } },
+  // BA_exvivo regions
+  BA3b_exvivo: { thickness: { mean: 2.15, std: 0.18 }, surfArea: { mean: 2000, std: 350 }, volume: { mean: 4500, std: 700 } },
+  BA4a_exvivo: { thickness: { mean: 2.85, std: 0.20 }, surfArea: { mean: 1300, std: 250 }, volume: { mean: 4300, std: 650 } },
+  BA4p_exvivo: { thickness: { mean: 2.80, std: 0.19 }, surfArea: { mean: 1000, std: 200 }, volume: { mean: 2700, std: 450 } },
+  BA44_exvivo: { thickness: { mean: 2.80, std: 0.18 }, surfArea: { mean: 1650, std: 300 }, volume: { mean: 5200, std: 750 } },
+  BA45_exvivo: { thickness: { mean: 2.50, std: 0.18 }, surfArea: { mean: 2250, std: 400 }, volume: { mean: 6200, std: 900 } },
+}
+
+// BA 区域曲率参考数据 (基于 FreeSurfer 8.0 正常成年人群)
+export const BA_CURVATURE_REFERENCE: Record<string, {
+  meanCurv: { mean: number; std: number }
+  foldInd: { mean: number; std: number }
+}> = {
+  BA3b_exvivo: { meanCurv: { mean: 0.118, std: 0.015 }, foldInd: { mean: 30, std: 8 } },
+  BA4a_exvivo: { meanCurv: { mean: 0.091, std: 0.012 }, foldInd: { mean: 23, std: 6 } },
+  BA4p_exvivo: { meanCurv: { mean: 0.098, std: 0.013 }, foldInd: { mean: 8, std: 3 } },
+  BA44_exvivo: { meanCurv: { mean: 0.113, std: 0.014 }, foldInd: { mean: 26, std: 7 } },
+  BA45_exvivo: { meanCurv: { mean: 0.132, std: 0.018 }, foldInd: { mean: 42, std: 10 } },
 }
 
 // DKT region data interface
@@ -42,11 +60,18 @@ export interface DKTRegionData {
   thickness: number
   surfArea: number
   volume: number
+  // 曲率相关指标 (BA_exvivo 文件中有)
+  meanCurv?: number    // 平均曲率
+  gausCurv?: number    // 高斯曲率
+  foldInd?: number     // 折叠指数
+  curvInd?: number     // 曲率指数
 }
 
 export interface DKTData {
   lh: Record<string, DKTRegionData>
   rh: Record<string, DKTRegionData>
+  lhBA?: Record<string, DKTRegionData>
+  rhBA?: Record<string, DKTRegionData>
 }
 
 // Region detail interface
@@ -112,25 +137,42 @@ export function zToPercentile(z: number): number {
 }
 
 // Parse DKT stats file
+// 支持两种格式：
+// - DKT atlas: StructName NumVert SurfArea GrayVol ThickAvg ThickStd
+// - BA_exvivo: StructName NumVert SurfArea GrayVol ThickAvg ThickStd MeanCurv GausCurv FoldInd CurvInd
 export function parseDKTStats(content: string): Record<string, DKTRegionData> {
   const data: Record<string, DKTRegionData> = {}
   const lines = content.split('\n')
   
   let inTable = false
+  let hasExtendedCols = false
+  
   for (const line of lines) {
     if (line.includes('ColHeaders')) {
       inTable = true
+      // 检查是否有曲率列 (BA_exvivo 格式有 10 列)
+      hasExtendedCols = line.includes('MeanCurv') || line.includes('CurvInd')
       continue
     }
     if (inTable && line.trim() && !line.startsWith('#')) {
       const parts = line.trim().split(/\s+/)
       if (parts.length >= 5) {
         const regionName = parts[0]
-        data[regionName] = {
+        const regionData: DKTRegionData = {
           surfArea: parseFloat(parts[2]),
           volume: parseFloat(parts[3]),
           thickness: parseFloat(parts[4])
         }
+        
+        // 如果有扩展列（BA_exvivo 格式），解析曲率数据
+        if (hasExtendedCols && parts.length >= 10) {
+          regionData.meanCurv = parseFloat(parts[6])  // MeanCurv
+          regionData.gausCurv = parseFloat(parts[7])  // GausCurv
+          regionData.foldInd = parseFloat(parts[8])   // FoldInd
+          regionData.curvInd = parseFloat(parts[9])   // CurvInd
+        }
+        
+        data[regionName] = regionData
       }
     }
   }

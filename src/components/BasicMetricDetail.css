@@ -1,10 +1,10 @@
-/* 🎀 可爱公主风基础指标详情 */
+/* 少女粉色系基础指标详情 */
 .basic-metric-detail {
   max-width: 900px;
   margin: 0 auto;
 }
 
-/* 🔙 返回按钮 */
+/* 返回按钮 */
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -38,16 +38,6 @@
   margin-bottom: 35px;
 }
 
-.detail-icon {
-  font-size: 3.5em;
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
 .basic-metric-detail .detail-header h1 {
   font-size: 2.2em;
   color: #6b4c7a;
@@ -55,14 +45,13 @@
   text-shadow: 0 2px 10px rgba(255, 158, 199, 0.2);
 }
 
-/* 🏆 数值展示区域 */
+/* 数值展示区域 */
 .value-section {
-  background: linear-gradient(135deg, #ff9ec7 0%, #c9a0ff 50%, #a0d4ff 100%);
+  background: linear-gradient(135deg, #ff9ec7 0%, #c9a0ff 50%, #e8c5ff 100%);
   background-size: 200% 200%;
   border-radius: 30px;
-  padding: 45px;
+  padding: 40px;
   color: white;
-  text-align: center;
   margin-bottom: 35px;
   box-shadow: 
     0 10px 40px rgba(255, 158, 199, 0.4),
@@ -78,39 +67,23 @@
   100% { background-position: 0% 50%; }
 }
 
-.value-section::before {
-  content: '✨';
-  position: absolute;
-  top: 20px;
-  left: 25px;
-  font-size: 1.5em;
-  animation: sparkle 2s ease-in-out infinite;
-}
-
-.value-section::after {
-  content: '✨';
-  position: absolute;
-  bottom: 20px;
-  right: 25px;
-  font-size: 1.5em;
-  animation: sparkle 2s ease-in-out infinite 0.5s;
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-  50% { opacity: 0.7; transform: scale(1.2) rotate(15deg); }
+.value-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 30px;
+  margin-bottom: 25px;
 }
 
 .value-display {
   display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 18px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .value-number {
-  font-size: 4.5em;
+  font-size: 4em;
   font-weight: 700;
   text-shadow: 
     0 0 30px rgba(255, 255, 255, 0.5),
@@ -118,9 +91,43 @@
 }
 
 .value-unit {
-  font-size: 1.6em;
+  font-size: 1.4em;
   opacity: 0.95;
   font-weight: 600;
+}
+
+/* 圆形进度条 */
+.circular-progress-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-progress {
+  transform: rotate(0deg);
+  filter: drop-shadow(0 4px 15px rgba(255, 107, 157, 0.3));
+}
+
+.circular-progress-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.percentile-label {
+  font-size: 0.85em;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.percentile-value {
+  font-size: 2em;
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .normal-range {
@@ -128,7 +135,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  font-size: 1.15em;
+  font-size: 1.1em;
 }
 
 .range-label {
@@ -144,7 +151,7 @@
   font-weight: 600;
 }
 
-/* 📋 详情区块 */
+/* 详情区块 */
 .basic-metric-detail .detail-section {
   background: linear-gradient(135deg, #fff 0%, #ffeef8 100%);
   border-radius: 25px;
@@ -162,10 +169,18 @@
   margin-bottom: 18px;
   padding-bottom: 12px;
   border-bottom: 3px solid rgba(255, 158, 199, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .basic-metric-detail .detail-section h2::before {
-  content: '🎀 ';
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #ff6b9d, #c9a0ff);
+  border-radius: 50%;
 }
 
 .description-box,
@@ -183,7 +198,7 @@
   box-shadow: 0 4px 15px rgba(160, 212, 255, 0.15);
 }
 
-/* 📝 功能列表 */
+/* 功能列表 */
 .functions-list {
   display: grid;
   gap: 14px;
@@ -210,7 +225,7 @@
   font-size: 1.2em;
 }
 
-/* 📚 参考文献 */
+/* 参考文献 */
 .basic-metric-detail .references-list {
   display: flex;
   flex-direction: column;
@@ -233,7 +248,7 @@
   flex-shrink: 0;
 }
 
-/* 📝 页脚 */
+/* 页脚 */
 .basic-metric-detail .detail-footer {
   padding: 22px;
   background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
@@ -251,11 +266,25 @@
 }
 
 @media (max-width: 768px) {
+  .value-row {
+    flex-direction: column;
+    gap: 25px;
+  }
+  
   .value-number {
-    font-size: 3.5em;
+    font-size: 3em;
   }
   
   .value-section {
-    padding: 35px 25px;
+    padding: 30px 20px;
+  }
+  
+  .circular-progress-container svg {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .percentile-value {
+    font-size: 1.6em;
   }
 }

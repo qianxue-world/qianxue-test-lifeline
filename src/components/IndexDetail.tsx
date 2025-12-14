@@ -406,6 +406,16 @@ export default function IndexDetail({ index, onBack }: Props) {
         </section>
       )}
 
+      {/* 对视小贴士 - 仅在主视眼指数时显示 */}
+      {index.name === 'Dominant Eye Index' && t.indexDetail.eyeContactTip && (
+        <section className="detail-section eye-contact-tip">
+          <h2>{t.indexDetail.eyeContactTip}</h2>
+          <div className="tip-box">
+            <p>{t.indexDetail.eyeContactContent}</p>
+          </div>
+        </section>
+      )}
+
       {/* 参考文献 */}
       <section className="detail-section">
         <h2>{t.indexDetail.references}</h2>

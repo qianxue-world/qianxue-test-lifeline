@@ -21,7 +21,9 @@ import {
   calculateHandednessIndex,
   calculateDominantEyeIndex,
   calculatePreferredNostrilIndex,
-  calculateLanguageLateralizationIndex
+  calculateLanguageLateralizationIndex,
+  calculateLanguageOutputLateralization,
+  calculateLanguageInputLateralization
 } from './basicLateralization'
 import {
   calculateOlfactoryIndex,
@@ -30,7 +32,8 @@ import {
   calculateEmpathyIndex,
   calculateExecutiveIndex,
   calculateSpatialIndex,
-  calculateFluidIntelligenceIndex
+  calculateFluidIntelligenceIndex,
+  calculateParietalIQIndex
 } from './cognitiveIndices'
 import {
   calculateSpatialAttentionLateralization,
@@ -52,15 +55,23 @@ export interface DKTAnalysisResult {
   }
 }
 
-export function runDKTAnalysis(lhData: Record<string, any>, rhData: Record<string, any>, t?: any): DKTAnalysisResult {
-  const data: DKTData = { lh: lhData, rh: rhData }
+export function runDKTAnalysis(
+  lhData: Record<string, any>, 
+  rhData: Record<string, any>, 
+  t?: any,
+  lhBAData?: Record<string, any>,
+  rhBAData?: Record<string, any>
+): DKTAnalysisResult {
+  const data: DKTData = { lh: lhData, rh: rhData, lhBA: lhBAData, rhBA: rhBAData }
   
   const indices = [
-    // Basic lateralization indices (0-3)
+    // Basic lateralization indices (0-5)
     calculateHandednessIndex(data, t),
     calculateDominantEyeIndex(data, t),
     calculatePreferredNostrilIndex(data, t),
     calculateLanguageLateralizationIndex(data, t),
+    calculateLanguageOutputLateralization(data, t),
+    calculateLanguageInputLateralization(data, t),
     // Advanced functional lateralization indices (4-10)
     calculateSpatialAttentionLateralization(data, t),
     calculateEmotionLateralization(data, t),
@@ -75,11 +86,12 @@ export function runDKTAnalysis(lhData: Record<string, any>, rhData: Record<strin
     calculateLanguageIndex(data, t),
     calculateReadingIndex(data, t),
     calculateDyslexiaRiskIndex(data, t),
-    // Cognitive ability indices (15-18)
+    // Cognitive ability indices (15-19)
     calculateEmpathyIndex(data, t),
     calculateExecutiveIndex(data, t),
     calculateSpatialIndex(data, t),
-    calculateFluidIntelligenceIndex(data, t)
+    calculateFluidIntelligenceIndex(data, t),
+    calculateParietalIQIndex(data, t)
   ]
   
   // Generate summary

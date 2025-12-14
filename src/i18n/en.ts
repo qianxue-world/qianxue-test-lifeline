@@ -132,6 +132,8 @@ export const en: Translations = {
       'Dominant Eye Index': 'Dominant Eye Index',
       'Preferred Nostril Index': 'Preferred Nostril Index',
       'Language Lateralization Index': 'Language Lateralization Index',
+      'Language Output Lateralization Index': 'Language Production Lateralization Index',
+      'Language Input Lateralization Index': 'Language Comprehension Lateralization Index',
       'Spatial Attention Lateralization Index': 'Spatial Attention Lateralization Index',
       'Emotion Processing Lateralization Index': 'Emotion Processing Lateralization Index',
       'Face Recognition Lateralization Index': 'Face Recognition Lateralization Index',
@@ -147,6 +149,7 @@ export const en: Translations = {
       'Executive Function Index': 'Executive Function Index',
       'Spatial Processing Index': 'Spatial Processing Index',
       'Fluid Intelligence Index (Structural)': 'Fluid Intelligence Index (Structural)',
+      'Parietal IQ Prediction Index': 'Parietal IQ Prediction Index',
     },
     lateralizationLabels: {
       leftSpatial: 'Left Spatial',
@@ -368,10 +371,12 @@ export const en: Translations = {
     rightZ: 'Right z',
     leftContribution: 'Left Contrib',
     rightContribution: 'Right Contrib',
-    thickSurfVol: 'T:S:V',
+    thickSurfVol: 'Weights',
     zScoreNote: '💡 Z-score represents the distance from the reference population mean in standard deviations. Positive values indicate above average, negative values indicate below average.',
     references: '📚 References',
     disclaimer: '⚠️ This index is based on statistical inference from brain structure data and is for research and reference only. Actual abilities need to be confirmed through behavioral testing.',
+    eyeContactTip: '👀 Eye Contact Tip',
+    eyeContactContent: 'When making eye contact, looking at their LEFT eye (your right visual field) activates their right brain emotional center, enhancing empathy and intimacy. Research shows looking at the left eye can boost oxytocin levels (+15-20%), making them feel more "understood". Try the "triangle method": left eye → lips → right eye, to avoid single-point pressure. Left eye dominant people typically have stronger right brain emotional processing and may be naturally better at building emotional connections through eye contact.',
   },
   
   brainRegions: {
@@ -403,16 +408,23 @@ export const en: Translations = {
     lateralorbitofrontal: 'Lateral Orbitofrontal Cortex',
     inferiortemporal: 'Inferior Temporal Gyrus',
     piriform: 'Piriform Cortex',
+    // BA_exvivo regions
+    BA3b_exvivo: 'BA3b Primary Somatosensory Cortex',
+    BA4a_exvivo: 'BA4a Primary Motor Cortex (Anterior)',
+    BA4p_exvivo: 'BA4p Primary Motor Cortex (Posterior)',
+    BA44_exvivo: 'BA44 Broca Area (Pars Opercularis)',
+    BA45_exvivo: 'BA45 Broca Area (Pars Triangularis)',
   },
   
   basicMetricDetail: {
     backButton: '← Back',
     referenceRange: 'Reference Range',
-    metricDescription: '📝 Metric Description',
-    resultInterpretation: '🔍 Result Interpretation',
-    relatedFunctions: '🧠 Related Brain Functions',
-    references: '📚 References',
-    disclaimer: '⚠️ Brain volume metrics are influenced by age, gender, body size, and other factors. Interpretation should consider individual circumstances.',
+    metricDescription: 'Metric Description',
+    resultInterpretation: 'Result Interpretation',
+    relatedFunctions: 'Related Brain Functions',
+    references: 'References',
+    disclaimer: 'Brain volume metrics are influenced by age, gender, body size, and other factors. Interpretation should consider individual circumstances.',
+    populationTop: 'Top',
   },
   
   dktSummary: {
@@ -511,6 +523,20 @@ export const en: Translations = {
       weakRight: 'Weak right lateralization (about 1.5% of population)',
       significantRight: 'Significant right lateralization (<0.5% of population)',
     },
+    languageOutput: {
+      strongLeft: 'Strong left lateralization for language output (typical pattern, ~85% of population). Left Broca area (BA44/BA45) is well-developed, supporting efficient speech production and grammar processing.',
+      mildLeft: 'Mild left lateralization for language output. Left Broca area shows slight advantage for speech production.',
+      bilateral: 'Bilateral language output (~5% of population). Both hemispheres contribute to speech production, which is less common.',
+      mildRight: 'Mild right lateralization for language output (atypical pattern). Right Broca area shows slight advantage.',
+      strongRight: 'Strong right lateralization for language output (rare, <1% of population). This atypical pattern may be associated with left-handedness.',
+    },
+    languageInput: {
+      strongLeft: 'Strong left lateralization for language comprehension (typical pattern). Left Wernicke area and related regions are well-developed, supporting efficient language understanding.',
+      mildLeft: 'Mild left lateralization for language comprehension. Left temporal language regions show slight advantage.',
+      bilateral: 'Bilateral language comprehension. Both hemispheres contribute to language understanding.',
+      mildRight: 'Mild right lateralization for language comprehension (less common). Right temporal language regions show slight advantage.',
+      strongRight: 'Strong right lateralization for language comprehension (atypical pattern). Right hemisphere dominates language understanding.',
+    },
     empathy: {
       excellent: 'Excellent empathy (top 5%). Anterior cingulate and insula are well developed, may have excellent emotional perception and empathy. Suitable for counseling, social work fields.',
       good: 'Good empathy (top 7%). Empathy-related cortex is well developed, emotional understanding and social cognition ability above average.',
@@ -539,6 +565,14 @@ export const en: Translations = {
       aboveAverage: 'Above average fluid intelligence structure estimate. Cognitive-related cortex is well developed.',
       normal: 'Normal fluid intelligence structure estimate. Cognitive-related cortex development is within normal range.',
       needsAttention: 'Fluid intelligence structure estimate needs attention. Cognitive-related cortex development is weak, can be improved through cognitive training.',
+    },
+    parietalIQ: {
+      exceptional: 'Exceptional parietal IQ prediction (predicted IQ 130+). Posterior parietal cortex (angular gyrus, supramarginal gyrus, SPL) is highly developed, indicating excellent abstract relational processing capacity. The parietal lobe shows the largest effect size in "structure predicts IQ" research.',
+      excellent: 'Excellent parietal IQ prediction (predicted IQ 120-129). Parietal regions are well developed, suggesting strong potential for spatial reasoning and abstract thinking. Research shows parietal thickness correlates with FSIQ (r≈0.35-0.45).',
+      good: 'Good parietal IQ prediction (predicted IQ 115-119). Parietal cortex is well developed, spatial working memory and relational reasoning abilities above average.',
+      aboveAverage: 'Above average parietal IQ prediction (predicted IQ 110-114). Parietal development is favorable for complex cognitive tasks.',
+      normal: 'Normal parietal IQ prediction (predicted IQ 90-109). Parietal cortex development is within the typical range.',
+      needsAttention: 'Parietal IQ prediction needs attention (predicted IQ <90). Parietal development is weak, may benefit from spatial reasoning and abstract thinking training.',
     },
     spatialAttention: {
       extremeRight: 'Extreme right bias (top 5%). Right parietal attention network has significant advantage, spatial attention highly biased toward left visual field, may perform more acutely in left spatial tasks.',

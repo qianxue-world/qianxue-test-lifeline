@@ -132,6 +132,8 @@ export const ja: Translations = {
       'Dominant Eye Index': '優位眼指数',
       'Preferred Nostril Index': '優位鼻孔指数',
       'Language Lateralization Index': '言語側性化指数',
+      'Language Output Lateralization Index': '言語産生側性化指数',
+      'Language Input Lateralization Index': '言語理解側性化指数',
       'Spatial Attention Lateralization Index': '空間注意側性化指数',
       'Emotion Processing Lateralization Index': '情動処理側性化指数',
       'Face Recognition Lateralization Index': '顔認識側性化指数',
@@ -147,6 +149,7 @@ export const ja: Translations = {
       'Executive Function Index': '実行機能指数',
       'Spatial Processing Index': '空間処理指数',
       'Fluid Intelligence Index (Structural)': '流動性知能構造推定指数',
+      'Parietal IQ Prediction Index': '頭頂葉IQ予測指数',
     },
     lateralizationLabels: {
       leftSpatial: '左空間',
@@ -368,10 +371,12 @@ export const ja: Translations = {
     rightZ: '右側 z',
     leftContribution: '左寄与',
     rightContribution: '右寄与',
-    thickSurfVol: '厚:表:体',
+    thickSurfVol: '重み',
     zScoreNote: '💡 z-score は参照集団の平均値からの標準偏差距離を表します。正の値は平均以上、負の値は平均以下を示します。',
     references: '📚 参考文献',
     disclaimer: '⚠️ この指標は脳構造データの統計的推論に基づいており、研究および参考目的のみです。実際の能力は行動テストで確認する必要があります。',
+    eyeContactTip: '👀 アイコンタクトのヒント',
+    eyeContactContent: 'アイコンタクト時、相手の左目（あなたの右視野）を見ると、相手の右脳感情中枢が活性化し、共感と親密感が高まります。研究によると、左目を見るとオキシトシンレベルが15-20%上昇し、相手は「理解されている」と感じやすくなります。「三角法」を試してみてください：左目→唇→右目と交互に見ることで、一点集中の圧迫感を避けられます。左目優位の人は通常、右脳の感情処理が強く、アイコンタクトで感情的なつながりを築くのが得意かもしれません。',
   },
   
   brainRegions: {
@@ -403,16 +408,23 @@ export const ja: Translations = {
     lateralorbitofrontal: '外側眼窩前頭皮質',
     inferiortemporal: '下側頭回',
     piriform: '梨状皮質',
+    // BA_exvivo 領域
+    BA3b_exvivo: 'BA3b 一次体性感覚野',
+    BA4a_exvivo: 'BA4a 一次運動野（前部）',
+    BA4p_exvivo: 'BA4p 一次運動野（後部）',
+    BA44_exvivo: 'BA44 ブローカ野（弁蓋部）',
+    BA45_exvivo: 'BA45 ブローカ野（三角部）',
   },
   
   basicMetricDetail: {
     backButton: '← 戻る',
     referenceRange: '参照範囲',
-    metricDescription: '📝 指標説明',
-    resultInterpretation: '🔍 結果解釈',
-    relatedFunctions: '🧠 関連脳機能',
-    references: '📚 参考文献',
-    disclaimer: '⚠️ 脳容量指標は年齢、性別、体型などの多くの要因に影響されます。個人の状況を考慮して総合的に解釈する必要があります。',
+    metricDescription: '指標説明',
+    resultInterpretation: '結果解釈',
+    relatedFunctions: '関連脳機能',
+    references: '参考文献',
+    disclaimer: '脳容量指標は年齢、性別、体型などの多くの要因に影響されます。個人の状況を考慮して総合的に解釈する必要があります。',
+    populationTop: '上位',
   },
   
   dktSummary: {
@@ -511,6 +523,20 @@ export const ja: Translations = {
       weakRight: '弱い右側化（約1.5%）',
       significantRight: '顕著な右側化（<0.5%）',
     },
+    languageOutput: {
+      strongLeft: '言語出力の強い左側化（典型的パターン、約85%）。左ブローカ野（BA44/BA45）が良好に発達し、効率的な発話産生と文法処理をサポート。',
+      mildLeft: '言語出力の軽度左側化。左ブローカ野がやや優位で、発話産生機能は正常。',
+      bilateral: '言語出力の両側化（約5%）。両半球が発話産生に関与する比較的稀なパターン。',
+      mildRight: '言語出力の軽度右側化（非典型的パターン）。右ブローカ野がやや優位。',
+      strongRight: '言語出力の強い右側化（稀、<1%）。この非典型的パターンは左利きと関連する可能性。',
+    },
+    languageInput: {
+      strongLeft: '言語理解の強い左側化（典型的パターン）。左ウェルニッケ野と関連領域が良好に発達し、効率的な言語理解をサポート。',
+      mildLeft: '言語理解の軽度左側化。左側頭葉言語領域がやや優位で、言語理解機能は正常。',
+      bilateral: '言語理解の両側化。両半球が言語理解に関与。',
+      mildRight: '言語理解の軽度右側化（比較的稀）。右側頭葉言語領域がやや優位。',
+      strongRight: '言語理解の強い右側化（非典型的パターン）。右半球が言語理解を主導。',
+    },
     empathy: {
       excellent: '優秀な共感能力（上位5%）。前帯状回と島皮質が良好に発達。',
       good: '良好な共感能力（上位7%）。共感関連皮質が良好に発達。',
@@ -539,6 +565,14 @@ export const ja: Translations = {
       aboveAverage: '平均以上の流動性知能構造推定。認知関連皮質が良好に発達。',
       normal: '正常な流動性知能構造推定。認知関連皮質の発達は正常範囲内。',
       needsAttention: '流動性知能構造推定に注意が必要。認知関連皮質の発達が弱い。',
+    },
+    parietalIQ: {
+      exceptional: '卓越した頭頂葉IQ予測（予測IQ 130+）。後頭頂皮質（角回、縁上回、上頭頂小葉）が高度に発達し、抽象的関係処理能力が極めて優れています。頭頂葉は「構造がIQを決定する」研究で最大の効果量を示す領域です。',
+      excellent: '優秀な頭頂葉IQ予測（予測IQ 120-129）。頭頂葉領域が良好に発達し、空間推論と抽象思考の潜在能力が高い。研究では頭頂葉の厚さとFSIQの相関（r≈0.35-0.45）が示されています。',
+      good: '良好な頭頂葉IQ予測（予測IQ 115-119）。頭頂皮質が良好に発達し、空間作業記憶と関係推論能力が平均以上。',
+      aboveAverage: '平均以上の頭頂葉IQ予測（予測IQ 110-114）。頭頂葉の発達が複雑な認知タスクに有利。',
+      normal: '正常な頭頂葉IQ予測（予測IQ 90-109）。頭頂皮質の発達は正常範囲内。',
+      needsAttention: '頭頂葉IQ予測に注意が必要（予測IQ <90）。頭頂葉の発達が弱く、空間推論と抽象思考のトレーニングで改善可能。',
     },
     spatialAttention: {
       extremeRight: '極度の右偏向（上位5%）。右側頭頂葉注意ネットワークが顕著に優位。',

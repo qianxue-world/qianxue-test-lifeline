@@ -496,3 +496,33 @@
 .lat-label-right {
   color: #ff6b9d;
 }
+
+
+/* 👀 对视小贴士样式 */
+.eye-contact-tip {
+  background: linear-gradient(135deg, #fff5f8 0%, #f0f8ff 100%);
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  border: 2px solid #ffb6c1;
+}
+
+.eye-contact-tip h2 {
+  color: #e91e63;
+  margin-bottom: 15px;
+}
+
+.tip-box {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(255, 182, 193, 0.2);
+  border-left: 4px solid #ff6b9d;
+}
+
+.tip-box p {
+  color: #5a4a6a;
+  line-height: 1.8;
+  margin: 0;
+  font-size: 0.95em;
+}

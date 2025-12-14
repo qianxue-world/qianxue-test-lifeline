@@ -138,6 +138,8 @@ export interface Translations {
       'Dominant Eye Index': string
       'Preferred Nostril Index': string
       'Language Lateralization Index': string
+      'Language Output Lateralization Index': string
+      'Language Input Lateralization Index': string
       'Spatial Attention Lateralization Index': string
       'Emotion Processing Lateralization Index': string
       'Face Recognition Lateralization Index': string
@@ -153,6 +155,7 @@ export interface Translations {
       'Executive Function Index': string
       'Spatial Processing Index': string
       'Fluid Intelligence Index (Structural)': string
+      'Parietal IQ Prediction Index': string
     }
     // 侧化标签
     lateralizationLabels: {
@@ -194,6 +197,8 @@ export interface Translations {
     zScoreNote: string
     references: string
     disclaimer: string
+    eyeContactTip?: string
+    eyeContactContent?: string
   }
   
   // 脑区名称翻译
@@ -226,6 +231,12 @@ export interface Translations {
     lateralorbitofrontal: string
     inferiortemporal: string
     piriform: string
+    // BA_exvivo 区域
+    BA3b_exvivo: string
+    BA4a_exvivo: string
+    BA4p_exvivo: string
+    BA44_exvivo: string
+    BA45_exvivo: string
   }
   
   // 基础指标详情页
@@ -237,6 +248,7 @@ export interface Translations {
     relatedFunctions: string
     references: string
     disclaimer: string
+    populationTop: string
   }
   
   // 评分标签
@@ -532,6 +544,20 @@ export interface Translations {
       weakRight: string
       significantRight: string
     }
+    languageOutput?: {
+      strongLeft: string
+      mildLeft: string
+      bilateral: string
+      mildRight: string
+      strongRight: string
+    }
+    languageInput?: {
+      strongLeft: string
+      mildLeft: string
+      bilateral: string
+      mildRight: string
+      strongRight: string
+    }
     empathy: {
       excellent: string
       good: string
@@ -621,6 +647,14 @@ export interface Translations {
       balanced: string
       mildRight: string
       strongRight: string
+    }
+    parietalIQ?: {
+      exceptional: string
+      excellent: string
+      good: string
+      aboveAverage: string
+      normal: string
+      needsAttention: string
     }
   }
   

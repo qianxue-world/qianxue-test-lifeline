@@ -295,3 +295,20 @@ export function getMathematicalAbilityInterpretation(value: number, t?: any): st
   }
   return t.interpretations.mathematicalAbility.strongRight
 }
+
+// 顶叶智商预测指数解释
+export function getParietalIQInterpretation(value: number, t?: any): string {
+  if (!t) return ''
+  if (value > 2.5) {
+    return t.interpretations.parietalIQ?.exceptional || 'Exceptional parietal structure (top 0.6%). Highly developed posterior parietal cortex suggests excellent abstract reasoning and relational processing capacity.'
+  } else if (value > 2.0) {
+    return t.interpretations.parietalIQ?.excellent || 'Excellent parietal structure (top 2.3%). Well-developed parietal regions indicate strong potential for complex reasoning tasks.'
+  } else if (value > 1.5) {
+    return t.interpretations.parietalIQ?.good || 'Good parietal structure (top 7%). Above-average parietal development supports good spatial and abstract reasoning abilities.'
+  } else if (value > 1.0) {
+    return t.interpretations.parietalIQ?.aboveAverage || 'Above average parietal structure (top 16%). Parietal cortex development is favorable for cognitive tasks.'
+  } else if (value > -1.0) {
+    return t.interpretations.parietalIQ?.normal || 'Normal parietal structure. Parietal cortex development is within the typical range.'
+  }
+  return t.interpretations.parietalIQ?.needsAttention || 'Parietal structure needs attention. May benefit from cognitive training targeting spatial and abstract reasoning.'
+}
